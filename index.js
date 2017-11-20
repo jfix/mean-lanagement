@@ -35,7 +35,7 @@ async.each(
         } else {
           resultObject[name] = {'open_issues': res.total_count}
         }
-        console.log(`Adding ${res.total_count} to ${name}.`)
+        console.log(`Counting ${res.total_count} for ${name}.`)
         cb()
       })
       .catch((err) => {
@@ -84,7 +84,7 @@ async.each(
         } else {
           resultObject[name] = {'stock': res.total_count}
         }
-        console.log(`Adding ${res.total_count} to ${name}.`)
+        console.log(`Counting ${res.total_count} for ${name}.`)
         cb()
       })
       .catch((err) => {
