@@ -4,11 +4,16 @@ const dotenv = require('dotenv').config({path: path.resolve(__dirname, '_env')})
 const fs = require('fs')
 const rp = require('request-promise')
 const _ = require('lodash')
+const moment = require('moment')
 
 const projects = JSON.parse(fs.readFileSync(path.resolve(__dirname, process.env.CONFIG_FILE), 'utf8'))
 
 var resultObject = {}
-const dates = '%3E%3C2017-11-12|2017-11-19'
+
+const fromDate = moment().day(-7).format('YYYY-MM-DD')
+const toDate = moment().day(0).format('YYYY-MM-DD')
+const dates = `%3E%3C${fromDate}|${toDate}`
+
 const requestOptions = {
   'headers': {
     'X-Redmine-API-Key': process.env.REDMINE_API_KEY
@@ -35,7 +40,7 @@ async.each(
         } else {
           resultObject[name] = {'open_issues': res.total_count}
         }
-        console.log(`Counting ${res.total_count} for ${name}.`)
+        console.log(`STOCK: ${res.total_count} ${name}`)
         cb()
       })
       .catch((err) => {
@@ -59,7 +64,7 @@ async.each(
         if (err) {
           console.log(`ERR: ${err}`)
         } else {
-          console.log(`Open issues SUM: ${res}`)
+          console.log(`Overall stock: ${res}`)
         }
       })
     }
@@ -84,7 +89,7 @@ async.each(
         } else {
           resultObject[name] = {'stock': res.total_count}
         }
-        console.log(`Counting ${res.total_count} for ${name}.`)
+        console.log(`NEW: ${res.total_count} ${name}`)
         cb()
       })
       .catch((err) => {
@@ -108,7 +113,7 @@ async.each(
         if (err) {
           console.log(`ERR: ${err}`)
         } else {
-          console.log(`Stock SUM: ${res}`)
+          console.log(`New tickets in the week between ${fromDate} and ${toDate}: ${res}`)
         }
       })
     }
