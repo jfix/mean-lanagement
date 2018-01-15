@@ -22,6 +22,7 @@ const requestOptions = {
   'url': ''
 }
 
+// stock of open support tickets
 async.each(
   // collection to iterate over
   projects,
@@ -30,17 +31,17 @@ async.each(
   (project, cb) => {
     // console.log(`now processing ${project.name} ...`)
     const name = project.name
-    const trackerIds = project.stock_ticket_types.join('|')
+    const trackerIds = project.support_ticket_types.join('|')
     const url = `${process.env.REDMINE_URL}?project_id=${project.id}&status_id=open&tracker_id=${trackerIds}`
     requestOptions.url = url
     rp(requestOptions)
       .then((res) => {
         if (resultObject[name]) {
-          resultObject[name].open_issues = res.total_count
+          resultObject[name].support_stock = res.total_count
         } else {
-          resultObject[name] = {'open_issues': res.total_count}
+          resultObject[name] = {'support_stock': res.total_count}
         }
-        console.log(`STOCK: ${res.total_count} ${name}`)
+        console.log(`SUPPORT STOCK: ${name} ${res.total_count}`)
         cb()
       })
       .catch((err) => {
@@ -57,20 +58,21 @@ async.each(
       // add stock
       async.reduce(resultObject, 0, (memo, i, cb) => {
         process.nextTick(function () {
-          cb(null, memo + i.open_issues)
+          cb(null, memo + i.support_stock)
         })
       },
       (err, res) => {
         if (err) {
           console.log(`ERR: ${err}`)
         } else {
-          console.log(`Overall stock: ${res}`)
+          console.log(`Open support ticket stock: ${res}`)
         }
       })
     }
   }
 )
 
+// new support tickets last week
 async.each(
   // collection to iterate over
   projects,
@@ -79,17 +81,17 @@ async.each(
   (project, cb) => {
     // console.log(`now processing ${project.name} ...`)
     const name = project.name
-    const trackerIds = project.stock_ticket_types.join('|')
+    const trackerIds = project.support_ticket_types.join('|')
     const url = `${process.env.REDMINE_URL}?project_id=${project.id}&created_on=${dates}&tracker_id=${trackerIds}`
     requestOptions.url = url
     rp(requestOptions)
       .then((res) => {
         if (resultObject[name]) {
-          resultObject[name].stock = res.total_count
+          resultObject[name].support_new = res.total_count
         } else {
-          resultObject[name] = {'stock': res.total_count}
+          resultObject[name] = {'support_new': res.total_count}
         }
-        console.log(`NEW: ${res.total_count} ${name}`)
+        console.log(`NEW SUPPORT: ${name} ${res.total_count}`)
         cb()
       })
       .catch((err) => {
@@ -106,14 +108,114 @@ async.each(
       // add stock
       async.reduce(resultObject, 0, (memo, i, cb) => {
         process.nextTick(function () {
-          cb(null, memo + i.stock)
+          cb(null, memo + i.support_new)
         })
       },
       (err, res) => {
         if (err) {
           console.log(`ERR: ${err}`)
         } else {
-          console.log(`New tickets in the week between ${fromDate} and ${toDate}: ${res}`)
+          console.log(`New support tickets in the week between ${fromDate} and ${toDate}: ${res}`)
+        }
+      })
+    }
+  }
+)
+
+// new feature tickets last week
+async.each(
+  // collection to iterate over
+  projects,
+
+  // function to execute for each item
+  (project, cb) => {
+    // console.log(`now processing ${project.name} ...`)
+    const name = project.name
+    const trackerIds = project.feature_ticket_types.join('|')
+    const url = `${process.env.REDMINE_URL}?project_id=${project.id}&created_on=${dates}&tracker_id=${trackerIds}`
+    requestOptions.url = url
+    rp(requestOptions)
+      .then((res) => {
+        if (resultObject[name]) {
+          resultObject[name].feature_new = res.total_count
+        } else {
+          resultObject[name] = {'feature_new': res.total_count}
+        }
+        console.log(`NEW FEATURES: ${name} ${res.total_count}`)
+        cb()
+      })
+      .catch((err) => {
+        console.log(err.message)
+        cb()
+      })
+  },
+
+  // once all items finished
+  (err) => {
+    if (err) {
+      console.log(`ERR: ${err}`)
+    } else {
+      // add stock
+      async.reduce(resultObject, 0, (memo, i, cb) => {
+        process.nextTick(function () {
+          cb(null, memo + i.feature_new)
+        })
+      },
+      (err, res) => {
+        if (err) {
+          console.log(`ERR: ${err}`)
+        } else {
+          console.log(`New feature tickets in the week between ${fromDate} and ${toDate}: ${res}`)
+        }
+      })
+    }
+  }
+)
+
+// stock of open feature tickets
+async.each(
+  // collection to iterate over
+  projects,
+
+  // function to execute for each item
+  (project, cb) => {
+    // console.log(`now processing ${project.name} ...`)
+    const name = project.name
+    const trackerIds = project.feature_ticket_types.join('|')
+    const url = `${process.env.REDMINE_URL}?project_id=${project.id}&status_id=open&tracker_id=${trackerIds}`
+    requestOptions.url = url
+    rp(requestOptions)
+      .then((res) => {
+        if (resultObject[name]) {
+          resultObject[name].feature_stock = res.total_count
+        } else {
+          resultObject[name] = {'feature_stock': res.total_count}
+        }
+        console.log(`FEATURE STOCK: ${name} ${res.total_count}`)
+        cb()
+      })
+      .catch((err) => {
+        console.log(err.message)
+        cb()
+      })
+  },
+
+  // once all items finished
+  (err) => {
+    if (err) {
+      console.log(`ERR: ${err}`)
+    } else {
+      // add stock
+      async.reduce(resultObject, 0, (memo, i, cb) => {
+        process.nextTick(function () {
+          cb(null, memo + i.feature_stock)
+        })
+      },
+      (err, res) => {
+        if (err) {
+          console.log(`ERR: ${err}`)
+        } else {
+          console.log(`Feature stock: ${res}`)
         }
       })
     }
