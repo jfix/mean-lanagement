@@ -23,7 +23,7 @@ const requestOptions = {
 }
 
 // stock of open support tickets
-async.each(
+const openSupportTickets = (callback) => async.each(
   // collection to iterate over
   projects,
 
@@ -41,7 +41,7 @@ async.each(
         } else {
           resultObject[name] = {'support_stock': res.total_count}
         }
-        console.log(`SUPPORT STOCK: ${name} ${res.total_count}`)
+        // console.log(`SUPPORT STOCK: ${name} ${res.total_count}`)
         cb()
       })
       .catch((err) => {
@@ -65,21 +65,21 @@ async.each(
         if (err) {
           console.log(`ERR: ${err}`)
         } else {
-          console.log(`Open support ticket stock: ${res}`)
+          // console.log(`Open support ticket stock: ${res}`)
         }
       })
     }
+    callback(null)
   }
 )
 
 // new support tickets last week
-async.each(
+const newSupportTickets = (callback) => async.each(
   // collection to iterate over
   projects,
 
   // function to execute for each item
   (project, cb) => {
-    // console.log(`now processing ${project.name} ...`)
     const name = project.name
     const trackerIds = project.support_ticket_types.join('|')
     const url = `${process.env.REDMINE_URL}?project_id=${project.id}&created_on=${dates}&tracker_id=${trackerIds}`
@@ -91,7 +91,7 @@ async.each(
         } else {
           resultObject[name] = {'support_new': res.total_count}
         }
-        console.log(`NEW SUPPORT: ${name} ${res.total_count}`)
+        // console.log(`NEW SUPPORT: ${name} ${res.total_count}`)
         cb()
       })
       .catch((err) => {
@@ -115,15 +115,16 @@ async.each(
         if (err) {
           console.log(`ERR: ${err}`)
         } else {
-          console.log(`New support tickets in the week between ${fromDate} and ${toDate}: ${res}`)
+          // console.log(`New support tickets in the week between ${fromDate} and ${toDate}: ${res}`)
         }
       })
     }
+    callback(null)
   }
 )
 
 // new feature tickets last week
-async.each(
+const newFeatureTickets = (callback) => async.each(
   // collection to iterate over
   projects,
 
@@ -141,7 +142,7 @@ async.each(
         } else {
           resultObject[name] = {'feature_new': res.total_count}
         }
-        console.log(`NEW FEATURES: ${name} ${res.total_count}`)
+        // console.log(`NEW FEATURES: ${name} ${res.total_count}`)
         cb()
       })
       .catch((err) => {
@@ -165,15 +166,16 @@ async.each(
         if (err) {
           console.log(`ERR: ${err}`)
         } else {
-          console.log(`New feature tickets in the week between ${fromDate} and ${toDate}: ${res}`)
+          // console.log(`New feature tickets in the week between ${fromDate} and ${toDate}: ${res}`)
         }
       })
     }
+    callback(null)
   }
 )
 
 // stock of open feature tickets
-async.each(
+const openFeatureTickets = (callback) => async.each(
   // collection to iterate over
   projects,
 
@@ -191,7 +193,7 @@ async.each(
         } else {
           resultObject[name] = {'feature_stock': res.total_count}
         }
-        console.log(`FEATURE STOCK: ${name} ${res.total_count}`)
+        // console.log(`FEATURE STOCK: ${name} ${res.total_count}`)
         cb()
       })
       .catch((err) => {
@@ -215,9 +217,28 @@ async.each(
         if (err) {
           console.log(`ERR: ${err}`)
         } else {
-          console.log(`Feature stock: ${res}`)
+          // console.log(`Feature stock: ${res}`)
         }
       })
     }
+    callback(null)
   }
+)
+
+async.parallel([
+  openSupportTickets,
+  newSupportTickets,
+  openFeatureTickets,
+  newFeatureTickets
+],
+(err, res) => {
+  // do something with the results.
+
+  // TODO: consolidate all values per ticket type
+  //    - total of open support tickets
+  //    - total of new support tickets
+  //    - total of open feature tickets
+  //    - total of new feature tickets
+  console.log(JSON.stringify(resultObject))
+}
 )
