@@ -8,7 +8,7 @@ const moment = require('moment')
 
 const projects = JSON.parse(fs.readFileSync(path.resolve(__dirname, process.env.CONFIG_FILE), 'utf8'))
 
-var resultObject = {}
+let resultObject = {}
 
 const fromDate = moment().day(-7).format('YYYY-MM-DD')
 const toDate = moment().day(0).format('YYYY-MM-DD')
@@ -225,6 +225,11 @@ const openFeatureTickets = (callback) => async.each(
   }
 )
 
+let supportStock = 0
+let supportNew = 0
+let featureStock = 0
+let featureNew = 0
+
 async.parallel([
   openSupportTickets,
   newSupportTickets,
@@ -232,13 +237,19 @@ async.parallel([
   newFeatureTickets
 ],
 (err, res) => {
-  // do something with the results.
+  if (err) throw err
 
-  // TODO: consolidate all values per ticket type
-  //    - total of open support tickets
-  //    - total of new support tickets
-  //    - total of open feature tickets
-  //    - total of new feature tickets
-  console.log(JSON.stringify(resultObject))
+  // do something with the results.
+  _.forEach(resultObject, (v) => {
+    // - total of open support tickets
+    supportStock += v.support_stock
+    // - total of new support tickets
+    supportNew += v.support_new
+    // - total of open feature tickets
+    featureStock += v.feature_stock
+    // - total of new feature tickets
+    featureNew += v.feature_new
+  })
+  console.log(`Period: ${fromDate} - ${toDate}:\nsupport stock: ${supportStock}\nsupport new: ${supportNew}\nfeature stock: ${featureStock}\nfeature new: ${featureNew}`)
 }
 )
