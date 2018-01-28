@@ -1,0 +1,98 @@
+{
+  "kappa": {
+    "support_new": 0,
+    "support_stock": 1,
+    "feature_new": 0,
+    "feature_stock": 1
+  },
+  "kv3": {
+    "support_new": 0,
+    "support_stock": 6,
+    "feature_new": 7,
+    "feature_stock": 54
+  },
+  "pubstat": {
+    "support_stock": 24,
+    "feature_new": 0,
+    "feature_stock": 12,
+    "support_new": 0
+  },
+  "tableau": {
+    "support_stock": 25,
+    "feature_new": 0,
+    "support_new": 0,
+    "feature_stock": 10
+  },
+  "prodtools": {
+    "support_stock": 24,
+    "feature_new": 0,
+    "support_new": 0,
+    "feature_stock": 8
+  },
+  "ilibrary-v2-export": {
+    "feature_new": 0,
+    "support_stock": 3,
+    "support_new": 2,
+    "feature_stock": 5
+  },
+  "tools": {
+    "feature_new": 0,
+    "support_stock": 2,
+    "feature_stock": 1,
+    "support_new": 0
+  },
+  "iexporteditems": {
+    "support_stock": 2,
+    "support_new": 0,
+    "feature_new": 0,
+    "feature_stock": 3
+  },
+  "pptechdoc": {
+    "feature_new": 0,
+    "support_stock": 25,
+    "support_new": 3,
+    "feature_stock": 6
+  },
+  "automate": {
+    "support_stock": 6,
+    "support_new": 2,
+    "feature_new": 1,
+    "feature_stock": 17
+  },
+  "support": {
+    "support_stock": 27,
+    "support_new": 2,
+    "feature_stock": 36,
+    "feature_new": 1
+  },
+  "pim": {
+    "feature_stock": 9,
+    "support_stock": 11,
+    "support_new": 0,
+    "feature_new": 0
+  },
+  "messagefocus-integration": {
+    "support_stock": 1,
+    "feature_new": 0,
+    "support_new": 0,
+    "feature_stock": 7
+  },
+  "oecdcode": {
+    "support_new": 0,
+    "support_stock": 0,
+    "feature_new": 0,
+    "feature_stock": 3
+  },
+  "eoi": {
+    "support_stock": 0,
+    "feature_new": 0,
+    "feature_stock": 1,
+    "support_new": 0
+  },
+  "usagestat": {
+    "feature_new": 0,
+    "support_new": 1,
+    "support_stock": 22,
+    "feature_stock": 33
+  }
+}

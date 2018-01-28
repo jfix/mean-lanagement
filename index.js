@@ -1,6 +1,6 @@
 const async = require('async')
 const path = require('path')
-const dotenv = require('dotenv').config({path: path.resolve(__dirname, '_env')})
+require('dotenv').config({path: path.resolve(__dirname, '_env')})
 const fs = require('fs')
 const rp = require('request-promise')
 const _ = require('lodash')
