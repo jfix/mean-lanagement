@@ -251,5 +251,8 @@ async.parallel([
     featureNew += v.feature_new
   })
   console.log(`Period: ${fromDate} - ${toDate}:\nsupport stock: ${supportStock}\nsupport new: ${supportNew}\nfeature stock: ${featureStock}\nfeature new: ${featureNew}`)
+  fs.writeFile(`${fromDate}-${toDate}.json`, JSON.stringify(resultObject), (err) => {
+    if (err) throw err
+  })
 }
 )
