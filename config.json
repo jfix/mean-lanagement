@@ -2,31 +2,31 @@
   {
     "id": 9,
     "name": "support",
-    "feature_ticket_types": [2, 6, 7, 8, 9],
+    "feature_ticket_types": [2, 7, 8, 9],
     "support_ticket_types": [1, 10]
       },
   {
     "id": 3,
     "name": "automate",
-    "feature_ticket_types": [2, 6, 7, 8, 9],
+    "feature_ticket_types": [2, 7, 8, 9],
     "support_ticket_types": [1, 10]
       },
   {
     "id": 51,
     "name": "iexporteditems",
-    "feature_ticket_types": [2, 6, 7, 8, 9],
+    "feature_ticket_types": [2, 7, 8, 9],
     "support_ticket_types": [1, 10]
       },
   {
     "id": 34,
     "name": "oecdcode",
-    "feature_ticket_types": [2, 6, 7, 8, 9],
+    "feature_ticket_types": [2, 7, 8, 9],
     "support_ticket_types": [1, 10]
       },
   {
     "id": 1,
     "name": "kappa",
-    "feature_ticket_types": [2, 6, 7, 8, 9],
+    "feature_ticket_types": [2, 7, 8, 9],
     "support_ticket_types": [1, 10]
       },
   {
@@ -38,31 +38,31 @@
   {
     "id": 90,
     "name": "usagestat",
-    "feature_ticket_types": [2, 6, 7, 8, 9],
+    "feature_ticket_types": [2, 7, 8, 9],
     "support_ticket_types": [1, 10]
       },
   {
     "id": 36,
     "name": "pptechdoc",
-    "feature_ticket_types": [2, 6, 7, 8, 9],
+    "feature_ticket_types": [2, 7, 8, 9],
     "support_ticket_types": [1, 10]
       },
   {
     "id": 69,
     "name": "prodtools",
-    "feature_ticket_types": [2, 6, 7, 8, 9],
+    "feature_ticket_types": [2, 7, 8, 9],
     "support_ticket_types": [1, 10]
       },
   {
     "id": 16,
     "name": "tools",
-    "feature_ticket_types": [2, 6, 7, 8, 9],
+    "feature_ticket_types": [2, 7, 8, 9],
     "support_ticket_types": [1, 10]
       },
   {
     "id": 128,
     "name": "ilibrary-v2-export",
-    "feature_ticket_types": [2, 6, 7, 8, 9],
+    "feature_ticket_types": [2, 7, 8, 9],
     "support_ticket_types": [1, 10]
       }
 ]
