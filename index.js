@@ -10,8 +10,11 @@ const projects = JSON.parse(fs.readFileSync(path.resolve(__dirname, process.env.
 
 let resultObject = {}
 
-const fromDate = moment().day(-7).format('YYYY-MM-DD')
-const toDate = moment().day(0).format('YYYY-MM-DD')
+// this works well when run in the same week as the one observed
+const fromDate = moment().day(1).format('YYYY-MM-DD')
+const toDate = moment().day(7).format('YYYY-MM-DD')
+//const fromDate = moment('2018-06-11').format('YYYY-MM-DD')
+//const toDate = moment('2018-06-17').format('YYYY-MM-DD')
 const dates = `%3E%3C${fromDate}|${toDate}`
 
 const requestOptions = {
