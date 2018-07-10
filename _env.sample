@@ -1,3 +1,4 @@
 CONFIG_FILE=./config.json
 REDMINE_URL=https://.../issues.json
 REDMINE_API_KEY=...
+NODE_TLS_REJECT_UNAUTHORIZED=0
